@@ -1,0 +1,56 @@
+API Key (v3 auth)
+80ef1f7c9782ae8f49ad43d536130056
+
+Example API Request
+https://api.themoviedb.org/3/movie/550?api_key=80ef1f7c9782ae8f49ad43d536130056
+
+api_key=80ef1f7c9782ae8f49ad43d536130056
+API Read Access Token (v4 auth)
+eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MGVmMWY3Yzk3ODJhZThmNDlhZDQzZDUzNjEzMDA1NiIsInN1YiI6IjVlN2NjYmFjZWVjNGYzMDU0N2E5NzcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N8vcWKA1k6r_47td_pHTJ3I5XXT6XHoWKbsAGtcO3c4
+
+
+const baseUrl = https://api.themoviedb.org/3/
+const imgBaseUrl = https://image.tmdb.org/t/p/w400/
+https://api.themoviedb.org/3/discover/movie?api_key=80ef1f7c9782ae8f49ad43d536130056&with_genres=27&page=3 //поиск по жанру, прикрутить в конце рандомнную страницу
+https://api.themoviedb.org/3/search/movie?api_key=80ef1f7c9782ae8f49ad43d536130056&language=ru&query=мстители // поиск фильма
+
+const results = [
+    {
+        "popularity": 99.557,
+        "vote_count": 17897,
+        "video": false,
+        "poster_path": "/qIUFg6tzKeK5bUDguonWCAFceNB.jpg",
+        "id": 299536,
+        "adult": false,
+        "backdrop_path": "/lmZFxXgJE3vgrciwuDib0N8CfQo.jpg",
+        "original_language": "en",
+        "original_title": "Avengers: Infinity War",
+        "genre_ids": [
+        28,
+        12,
+        878
+        ],
+        "title": "Мстители: Война бесконечности",
+        "vote_average": 8.3,
+        "overview": "Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой, новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности — артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, вело к этому моменту — судьба Земли никогда ещё не была столь неопределённой.",
+        "release_date": "2018-04-25"
+}
+]
+
+const movieResult = {
+
+}
+
+
+
+https://api.themoviedb.org/3/genre/movie/list?api_key=80ef1f7c9782ae8f49ad43d536130056&language=en-US // дженре лист
+
+
+
+
+<Link to={`/profile/${user.login}`} className="btn btn-primary">
+        Открыть
+</Link>
+
+
+              <Route path="/profile/:name" component={Profile} />
