@@ -1,6 +1,9 @@
 interface IGenre {
   [key: number]: string;
 }
+interface IGenreButton {
+  [key: string]: number;
+}
 
 export const genres: IGenre = {
   28: "Боевик",
@@ -22,4 +25,13 @@ export const genres: IGenre = {
   53: "Триллер",
   10752: "Военный",
   37: "Вестерн",
+};
+
+export const genreButton: IGenreButton = {
+  action: 28,
+  comedy: 35,
+  horror: 27,
+  fantasy: 14,
+  drama: 18,
+  thriller: 53,
 };

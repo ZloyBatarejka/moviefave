@@ -3,7 +3,7 @@ import {
   ISearchAction,
   IInitialSearchState,
 } from "../interfaces";
-import { SEARCH } from "./types";
+import { SEARCH, GENRE_SEARCH } from "./types";
 
 export const movie: IMovieSearchCard = {
   id: 299536,
@@ -21,6 +21,8 @@ const initialState: IInitialSearchState = {
 export default (state = initialState, action: ISearchAction) => {
   switch (action.type) {
     case SEARCH:
+      return { ...state, movies: action.payload };
+    case GENRE_SEARCH:
       return { ...state, movies: action.payload };
     default:
       return state;

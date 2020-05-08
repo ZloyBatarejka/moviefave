@@ -1,4 +1,4 @@
-import { SEARCH } from "./redux/types";
+import { SEARCH, GENRE_SEARCH } from "./redux/types";
 
 export interface IMovieSearchCard {
   id: number;
@@ -13,7 +13,7 @@ export interface IInitialSearchState {
   movies: IMovieSearchCard[];
 }
 export interface ISearchAction {
-  type: typeof SEARCH;
+  type: typeof SEARCH | typeof GENRE_SEARCH;
   payload: IMovieSearchCard[];
 }
 

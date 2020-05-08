@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchApiHandler } from "../redux/actions";
+import { searchApiHandler, genreSearch } from "../redux/actions";
+import { genreButton } from "../genres";
 const Form: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const dispatch = useDispatch();
@@ -8,6 +9,9 @@ const Form: React.FC = () => {
     event.preventDefault();
     dispatch(searchApiHandler(title));
     setTitle("");
+  };
+  const genreSearchHandler = (genre: string): void => {
+    dispatch(genreSearch(genreButton[genre]));
   };
   const handlInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -30,16 +34,56 @@ const Form: React.FC = () => {
       </form>
       <div className="genres">
         <div className="genres__column">
-          <button className="btn genres__title purple darken-4">Боевик</button>
-          <button className="btn genres__title orange accent-4">Комедия</button>
-          <button className="btn genres__title purple darken-4">Ужасы</button>
+          <button
+            className="btn genres__title purple darken-4"
+            onClick={() => {
+              genreSearchHandler("action");
+            }}
+          >
+            Боевик
+          </button>
+          <button
+            className="btn genres__title orange accent-4"
+            onClick={() => {
+              genreSearchHandler("comedy");
+            }}
+          >
+            Комедия
+          </button>
+          <button
+            className="btn genres__title purple darken-4"
+            onClick={() => {
+              genreSearchHandler("horror");
+            }}
+          >
+            Ужасы
+          </button>
         </div>
         <div className="genres__column">
-          <button className="btn genres__title orange accent-4">
+          <button
+            className="btn genres__title orange accent-4"
+            onClick={() => {
+              genreSearchHandler("fantasy");
+            }}
+          >
             Фантастика
           </button>
-          <button className="btn genres__title purple darken-4">Драма</button>
-          <button className="btn genres__title orange accent-4">Триллер</button>
+          <button
+            className="btn genres__title purple darken-4"
+            onClick={() => {
+              genreSearchHandler("drama");
+            }}
+          >
+            Драма
+          </button>
+          <button
+            className="btn genres__title orange accent-4"
+            onClick={() => {
+              genreSearchHandler("thriller");
+            }}
+          >
+            Триллер
+          </button>
         </div>
       </div>
     </>
