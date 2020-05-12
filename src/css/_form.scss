@@ -23,7 +23,11 @@
     width: 50%;
   }
 }
-
+.date {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: block;
+}
 @media screen and (max-width: $breakPoint) {
   .genres {
     flex-direction: row;

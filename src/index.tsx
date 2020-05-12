@@ -5,10 +5,21 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware } from "redux";
-import searchReducer from "./redux/searchReducer";
 import ReduxThunk from "redux-thunk";
+import appReducer from "./redux/appReducer";
 
-const store = createStore(searchReducer, compose(applyMiddleware(ReduxThunk)));
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  appReducer,
+  compose(applyMiddleware(ReduxThunk), composeEnhancers())
+);
 
 ReactDOM.render(
   <Provider store={store}>

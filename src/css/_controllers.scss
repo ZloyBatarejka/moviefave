@@ -1,0 +1,53 @@
+.filters {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  button {
+    width: 180px;
+  }
+}
+.controllers {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+.page {
+  order: 0;
+}
+.page2 {
+  order: 2;
+}
+.filters {
+  order: 1;
+}
+
+@media screen and (max-width: $breakPoint) {
+  .controllers {
+    flex-direction: column;
+  }
+  .filters {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
+    button {
+      width: 140px;
+      margin-bottom: 10px;
+    }
+  }
+  .page {
+    order: 1;
+    margin-bottom: 10px;
+  }
+  .page2 {
+    order: 0;
+    margin-bottom: 10px;
+  }
+  .filters {
+    order: 2;
+    display: flex;
+    justify-content: space-between !important;
+  }
+}

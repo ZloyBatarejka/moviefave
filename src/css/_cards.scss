@@ -10,7 +10,7 @@
   background: rgb(224, 224, 224);
   margin: 20px;
   width: 250px;
-  height: 550px;
+  height: 570px;
   &__image {
     width: 250px;
     height: 375px;
@@ -29,7 +29,8 @@
     display: block;
     font-size: 18px;
     font-weight: 700;
-    margin: 5px 0 !important;
+    margin: 0;
+    margin-top: 5px;
     height: 40px;
   }
   &__desc {

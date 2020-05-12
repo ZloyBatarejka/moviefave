@@ -1,9 +1,18 @@
 @import "./nav";
 @import "./form";
 @import "./cards";
+@import "./controllers";
+@import "./modal";
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   font-family: "Source Sans Pro", sans-serif;
+}
+.hide {
+  display: none;
+}
+.height {
+  max-height: 100vh;
+  overflow: hidden;
 }

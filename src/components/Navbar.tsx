@@ -1,8 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openModal, logout } from "../redux/actions";
+import { useSelector } from "react-redux";
+import { IAppReducer } from "../interfaces";
+
 const Navbar: React.FC = () => {
-  const login = (): void => {
-    console.log("hello");
+  const dispatch = useDispatch();
+  const openModalHandler = (): void => {
+    document.body.classList.add("height");
+    dispatch(openModal());
+  };
+  const loggedIn = useSelector((state: IAppReducer) => state.auth.loggId);
+  const logoutHandler = (): void => {
+    dispatch(logout());
   };
   return (
     <>
@@ -17,17 +28,27 @@ const Navbar: React.FC = () => {
                 Главная
               </NavLink>
             </li>
-            <li className="nav__item">
-              <NavLink to="/favorite">Закладки</NavLink>
-            </li>
+            {!loggedIn ? null : (
+              <li className="nav__item">
+                <NavLink to="/favorite">Закладки</NavLink>
+              </li>
+            )}
             <li className="nav__item">
               <NavLink to="/info">Информация</NavLink>
             </li>
-            <li className="nav__item">
-              <button className="nav__login" onClick={login}>
-                Войти
-              </button>
-            </li>
+            {loggedIn ? (
+              <li className="nav__item">
+                <button className="nav__login" onClick={logoutHandler}>
+                  Выйти
+                </button>
+              </li>
+            ) : (
+              <li className="nav__item">
+                <button className="nav__login" onClick={openModalHandler}>
+                  Войти
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
