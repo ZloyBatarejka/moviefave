@@ -89,9 +89,8 @@ export const genreSearch = (id: number, page: number, range: string) => {
   };
 };
 export const auth = (email: string, password: string, isLogin: boolean) => {
-  console.log(email, password);
   return async (
-    dispatch: ThunkDispatch<IInitialAuthState, undefined, ILogin>
+    dispatch: ThunkDispatch<IInitialAuthState, undefined, ILogin | IModalAction>
   ) => {
     const authData = {
       email,
@@ -113,12 +112,12 @@ export const auth = (email: string, password: string, isLogin: boolean) => {
   };
 };
 
-export const openModal = (): any => {
+export const openModal = (): IModalAction => {
   return {
     type: OPEN_MODAL,
   };
 };
-export const closeModal = (): any => {
+export const closeModal = (): IModalAction => {
   return {
     type: CLOSE_MODAL,
   };
@@ -130,6 +129,7 @@ export const login = (token: string): ILogin => {
   };
 };
 export const logout = () => {
+  localStorage.removeItem("token");
   return {
     type: LOGOUT,
   };

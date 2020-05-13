@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeModal } from "../redux/actions";
-import { IAppReducer } from "../interfaces";
 import { auth } from "../redux/actions";
 const Modal = () => {
   const dispatch = useDispatch();
-  const modalState = useSelector((state: IAppReducer) => state.auth.modal);
   const [inputLogin, setInputLogin] = useState<string>("");
   const [inputPassword, setInputPassword] = useState<string>("");
 
@@ -49,21 +47,23 @@ const Modal = () => {
         <div className="mmodal__content">
           <form onSubmit={closeModalHandler}>
             <p className="mmodal__input">
+              <label htmlFor="login">Email</label>
               <input
                 id="login"
                 type="text"
                 value={inputLogin}
                 onChange={(event) => loginInputHandler(event)}
               />
-              <label htmlFor="login">Email</label>
+              <span>Привт</span>
             </p>
             <p className="mmodal__input">
+              <label htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
                 onChange={(event) => passwordInputHandler(event)}
               />
-              <label htmlFor="password">Password</label>
+              <span>Привт</span>
             </p>
           </form>
         </div>
