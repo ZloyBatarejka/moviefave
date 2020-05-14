@@ -1,7 +1,19 @@
-import React from "react";
-import { ICardProps } from "../interfaces";
+import React, { useEffect, useState } from "react";
+import { ICardProps, IAppReducer } from "../interfaces";
 import { genres } from "../genres";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavotire, setMovie } from "../redux/actions";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
 const Card: React.FC<ICardProps> = ({ movie }) => {
+  const [favotited, setFavotited] = useState<boolean>(movie.favorited);
+  const faveIds = useSelector((state: IAppReducer) => state.fave.faveIds);
+  const loggedIn = useSelector((state: IAppReducer) => state.auth.loggId);
+  const favorites = useSelector((state: IAppReducer) => state.fave.movieList);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setFavotited(faveIds.includes(movie.id));
+  }, []);
   const classes = [
     movie.rating > 7 ? "good" : movie.rating > 4 ? "med" : "bad",
   ];
@@ -13,6 +25,29 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
       return genres[id];
     }
   });
+
+  const addFavoriteHandler = () => {
+    if (loggedIn) {
+      movie.favorited = true;
+      setFavotited(true);
+      dispatch(addFavorite(movie));
+      axios.post(
+        `https://moviefave-56a11.firebaseio.com/${loggedIn}.json`,
+        movie
+      );
+      return;
+    }
+    alert("Авторизуйтесь");
+  };
+
+  const removeFavoriteHandler = () => {
+    const newList = favorites.filter((item) => item.id !== movie.id);
+    loggedIn && dispatch(removeFavotire(loggedIn, movie.url, newList));
+    setFavotited(false);
+  };
+  const setMovieHandler = () => {
+    dispatch(setMovie(movie.id));
+  };
   return (
     <div className="card">
       <div className="card__image">
@@ -29,8 +64,23 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
         </p>
       </div>
       <div className="card__footer">
-        <button className="btn orange accent-4 ">О фильме</button>
-        <button className="btn purple darken-4">В закладки</button>
+        <NavLink to={`/movie/${movie.id}`}>
+          <button className="btn orange accent-4" onClick={setMovieHandler}>
+            О фильме
+          </button>
+        </NavLink>
+        {!favotited ? (
+          <button className="btn purple darken-4" onClick={addFavoriteHandler}>
+            В закладки
+          </button>
+        ) : (
+          <button
+            className="btn purple darken-4"
+            onClick={removeFavoriteHandler}
+          >
+            Удалить
+          </button>
+        )}
       </div>
     </div>
   );

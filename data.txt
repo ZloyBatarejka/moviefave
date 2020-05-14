@@ -2,7 +2,7 @@ API Key (v3 auth)
 80ef1f7c9782ae8f49ad43d536130056
 
 Example API Request
-https://api.themoviedb.org/3/movie/550?api_key=80ef1f7c9782ae8f49ad43d536130056
+https://api.themoviedb.org/3/movie/550?api_key=80ef1f7c9782ae8f49ad43d536130056&language=ru
 
 api_key=80ef1f7c9782ae8f49ad43d536130056
 API Read Access Token (v4 auth)

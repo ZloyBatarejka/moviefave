@@ -7,6 +7,10 @@ import {
   CLOSE_MODAL,
   LOGIN,
   LOGOUT,
+  ADD_FAVE,
+  SET_FAVE,
+  REMOVE_FAVE,
+  SET_MOVIE,
 } from "./types";
 import {
   ISearchAction,
@@ -15,6 +19,8 @@ import {
   IModalAction,
   ILogin,
   IInitialAuthState,
+  IFaveAction,
+  IMovie,
 } from "../interfaces";
 import { ThunkDispatch } from "redux-thunk";
 
@@ -24,7 +30,6 @@ export const searchApiHandler = (title: string, page: number) => {
   ) => {
     dispatch(nulifySearch());
     try {
-      console.log(page);
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=80ef1f7c9782ae8f49ad43d536130056&language=ru&query=${title}&page=${page}`
       );
@@ -40,6 +45,8 @@ export const searchApiHandler = (title: string, page: number) => {
               ? `https://image.tmdb.org/t/p/w300/${item.poster_path}`
               : "https://media.istockphoto.com/photos/vintage-8mm-film-reels-of-home-movies-history-and-memories-picture-id947659542?k=6&m=947659542&s=612x612&w=0&h=kW9x2woe4yB8yjFpkTus_A8z04TRqREZiGKvhRbY_wQ=",
             genresIds: item.genre_ids,
+            favorited: false,
+            url: null,
           };
           return movie;
         }
@@ -74,6 +81,8 @@ export const genreSearch = (id: number, page: number, range: string) => {
               ? `https://image.tmdb.org/t/p/w300/${item.poster_path}`
               : "https://media.istockphoto.com/photos/vintage-8mm-film-reels-of-home-movies-history-and-memories-picture-id947659542?k=6&m=947659542&s=612x612&w=0&h=kW9x2woe4yB8yjFpkTus_A8z04TRqREZiGKvhRbY_wQ=",
             genresIds: item.genre_ids,
+            favorited: false,
+            url: null,
           };
           return movie;
         }
@@ -111,13 +120,54 @@ export const auth = (email: string, password: string, isLogin: boolean) => {
     dispatch(closeModal());
   };
 };
-
+export const setFavorites = (url: string) => {
+  return async (dispatch: any) => {
+    const movies = await axios.get(
+      `https://moviefave-56a11.firebaseio.com/${url}.json`
+    );
+    let array: IMovieSearchCard[] = [];
+    if (movies.data) {
+      const objectKeys = Array.from(Object.keys(movies.data));
+      array = Array.from(Object.values(movies.data));
+      array.forEach((item, index) => {
+        item.url = objectKeys[index];
+      });
+    }
+    dispatch({
+      type: SET_FAVE,
+      payload: array,
+    });
+  };
+};
+export const addFavorite = (movie: IMovieSearchCard): IFaveAction => {
+  return {
+    type: ADD_FAVE,
+    payload: movie,
+  };
+};
+export const removeFavotire = (
+  url: string,
+  movieUrl: string | null,
+  movies: IMovieSearchCard[]
+) => {
+  return async (dispatch: any) => {
+    console.log(movies);
+    await axios.delete(
+      `https://moviefave-56a11.firebaseio.com/${url}/${movieUrl}.json`
+    );
+    dispatch({
+      type: REMOVE_FAVE,
+      payload: movies,
+    });
+  };
+};
 export const openModal = (): IModalAction => {
   return {
     type: OPEN_MODAL,
   };
 };
 export const closeModal = (): IModalAction => {
+  document.body.classList.remove("height");
   return {
     type: CLOSE_MODAL,
   };
@@ -138,6 +188,32 @@ const setPages = (pages: number): ISearchAction => {
   return {
     type: SET_PAGES,
     payload: pages,
+  };
+};
+export const setMovie = (id: number) => {
+  return async (dispatch: any) => {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=80ef1f7c9782ae8f49ad43d536130056&language=ru`
+    );
+    const data = response.data;
+    const movie: IMovie = {
+      id: data.id,
+      title: data.title,
+      tagline: data.tagline,
+      posterImg: `https://image.tmdb.org/t/p/w400/${data.poster_path}`,
+      rating: data.vote_average,
+      genres: data.genres,
+      imdbUrl: `https://www.imdb.com/title/${data.imdb_id}`,
+      date: data.release_date,
+      overview: data.overview,
+      runtime: data.runtime,
+      revenue: data.revenue,
+    };
+    localStorage.setItem("movie", JSON.stringify(movie));
+    dispatch({
+      type: SET_MOVIE,
+      payload: movie,
+    });
   };
 };
 const nulifySearch = (): ISearchAction => {

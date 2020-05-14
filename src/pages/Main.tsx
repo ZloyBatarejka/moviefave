@@ -5,7 +5,6 @@ import { IAppReducer } from "../interfaces";
 import Card from "../components/Card";
 const Main: React.FC = () => {
   const movies = useSelector((state: IAppReducer) => state.search.movies);
-  // const logged = useSelector((state: IAppReducer) => state.auth.logging);
   const moviesList = movies.map((movie) => {
     return <Card key={movie.id} movie={movie} />;
   });
