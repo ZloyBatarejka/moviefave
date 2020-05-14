@@ -216,6 +216,12 @@ export const setMovie = (id: number) => {
     });
   };
 };
+export const setMovieFromStorage = (movie: IMovie) => {
+  return {
+    type: SET_MOVIE,
+    payload: movie,
+  };
+};
 const nulifySearch = (): ISearchAction => {
   return {
     type: SEARCH,
