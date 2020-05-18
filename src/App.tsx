@@ -16,6 +16,7 @@ function App() {
     if (token) {
       dispatch(login(token));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const logging = useSelector((state: IAppReducer) => state.auth.modal);
   const logged = useSelector((state: IAppReducer) => state.auth.loggId);
@@ -23,6 +24,7 @@ function App() {
     if (logged) {
       dispatch(setFavorites(logged));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logged]);
   return (
     <>

@@ -2,13 +2,17 @@ import {
   IInitialFaveState,
   IFaveAction,
   IMovieSearchCard,
+  IFaveArrayAction,
 } from "../interfaces";
 import { ADD_FAVE, SET_FAVE, REMOVE_FAVE } from "./types";
 const initialState: IInitialFaveState = {
   movieList: [],
   faveIds: [],
 };
-export default (state = initialState, action: any) => {
+export default (
+  state = initialState,
+  action: IFaveAction | IFaveArrayAction
+) => {
   switch (action.type) {
     case ADD_FAVE:
       return {

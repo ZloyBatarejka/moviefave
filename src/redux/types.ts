@@ -1,6 +1,7 @@
 export const SEARCH = "SEARCH/SEARCH";
 export const GENRE_SEARCH = "SEARCH/GENRE SEARCH";
 export const SET_PAGES = "SEACH/PAGES";
+export const SORT = "SEARCH/SORT";
 export const OPEN_MODAL = "AUTH/OPEN MODAL";
 export const CLOSE_MODAL = "AUTH/CLOSE MODAL";
 export const LOGIN = "AUTH/LOGIN";
@@ -9,3 +10,5 @@ export const ADD_FAVE = "FAVE/ADD FAVE";
 export const SET_FAVE = "FAVE/SET FAVE";
 export const REMOVE_FAVE = "FAVE/REMOVE FAVE";
 export const SET_MOVIE = "MOVIE/SET_MOVIE";
+export const SHOW_MOVIE = "MOVIE/SHOW_MOVIE";
+export const REMOVE_MOVIE = "MOVIE/REMOVE_MOVIE";

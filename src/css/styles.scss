@@ -4,6 +4,7 @@
 @import "./controllers";
 @import "./modal";
 @import "./movie";
+@import "./information";
 * {
   margin: 0px;
   padding: 0px;
@@ -16,4 +17,11 @@
 .height {
   max-height: 100vh;
   overflow: hidden;
+}
+
+@media screen and (max-width: $breakPoint) {
+  .height {
+    max-height: auto;
+    overflow: auto;
+  }
 }

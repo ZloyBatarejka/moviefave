@@ -1,11 +1,11 @@
-import { IInitialAuthState } from "../interfaces";
+import { IInitialAuthState, ILogin, IModalAction } from "../interfaces";
 import { OPEN_MODAL, CLOSE_MODAL, LOGIN, LOGOUT } from "./types";
 const initialState: IInitialAuthState = {
   modal: false,
   loggId: null,
 };
 
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: ILogin | IModalAction) => {
   switch (action.type) {
     case OPEN_MODAL:
       return { ...state, modal: true };

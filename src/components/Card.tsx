@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ICardProps, IAppReducer } from "../interfaces";
 import { genres } from "../genres";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavorite, removeFavotire, setMovie } from "../redux/actions";
+import {
+  addFavorite,
+  removeFavotire,
+  setMovie,
+  showMovie,
+} from "../redux/actions";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
 const Card: React.FC<ICardProps> = ({ movie }) => {
   const [favotited, setFavotited] = useState<boolean>(movie.favorited);
   const faveIds = useSelector((state: IAppReducer) => state.fave.faveIds);
@@ -13,6 +17,7 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     setFavotited(faveIds.includes(movie.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const classes = [
     movie.rating > 7 ? "good" : movie.rating > 4 ? "med" : "bad",
@@ -24,9 +29,10 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
     if (index === 1) {
       return genres[id];
     }
+    return null;
   });
 
-  const addFavoriteHandler = () => {
+  const addFavoriteHandler = (): void => {
     if (loggedIn) {
       movie.favorited = true;
       setFavotited(true);
@@ -40,13 +46,18 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
     alert("Авторизуйтесь");
   };
 
-  const removeFavoriteHandler = () => {
+  const removeFavoriteHandler = (): void => {
     const newList = favorites.filter((item) => item.id !== movie.id);
     loggedIn && dispatch(removeFavotire(loggedIn, movie.url, newList));
     setFavotited(false);
   };
-  const setMovieHandler = () => {
+  const setMovieHandler = (): void => {
     dispatch(setMovie(movie.id));
+    showMovieHandler();
+  };
+  const showMovieHandler = (): void => {
+    document.body.classList.add("height");
+    dispatch(showMovie());
   };
   return (
     <div className="card">
@@ -64,11 +75,9 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
         </p>
       </div>
       <div className="card__footer">
-        <NavLink to={`/movie/${movie.id}`}>
-          <button className="btn orange accent-4" onClick={setMovieHandler}>
-            О фильме
-          </button>
-        </NavLink>
+        <button className="btn orange accent-4" onClick={setMovieHandler}>
+          О фильме
+        </button>
         {!favotited ? (
           <button className="btn purple darken-4" onClick={addFavoriteHandler}>
             В закладки

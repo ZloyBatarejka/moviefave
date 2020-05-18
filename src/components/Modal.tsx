@@ -15,10 +15,12 @@ const Modal = () => {
   useEffect(() => {
     checkDisabled();
     validateEmail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emailValid]);
   useEffect(() => {
     checkDisabled();
     validatePassword();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [passwordlValid]);
   const enterHandler = (): void => {
     dispatch(auth(inputLogin, inputPassword, true));
@@ -84,7 +86,7 @@ const Modal = () => {
   };
 
   const regEx = (): boolean => {
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
+    let re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
     return re.test(String(inputLogin).toLocaleLowerCase());
   };
 
@@ -97,9 +99,7 @@ const Modal = () => {
     <div
       className="overlay"
       data-exit="true"
-      onClick={(event) => {
-        overlayСloseModalHandler(event);
-      }}
+      onClick={overlayСloseModalHandler}
     >
       <div className="mmodal">
         <div className="mmodal__title">

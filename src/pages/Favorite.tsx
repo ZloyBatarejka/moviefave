@@ -7,7 +7,6 @@ const Favorite: React.FC = () => {
   const favoriteList = movies.map((movie) => {
     return <Card key={movie.id} movie={movie} />;
   });
-  console.log(movies);
   return <div className="cards">{favoriteList}</div>;
 };
 

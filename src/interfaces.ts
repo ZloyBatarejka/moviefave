@@ -8,6 +8,11 @@ import {
   ADD_FAVE,
   SET_FAVE,
   SET_MOVIE,
+  SHOW_MOVIE,
+  REMOVE_MOVIE,
+  SORT,
+  LOGOUT,
+  REMOVE_FAVE,
 } from "./redux/types";
 
 export interface IAppReducer {
@@ -53,15 +58,18 @@ export interface ICardProps {
 }
 
 export interface ILogin {
-  type: typeof LOGIN;
-  payload: string;
+  type: typeof LOGIN | typeof LOGOUT;
+  payload?: string;
 }
 
 export interface IFaveAction {
-  type: typeof ADD_FAVE | typeof SET_FAVE;
-  payload: IMovieSearchCard | IMovieSearchCard[];
+  type: typeof ADD_FAVE;
+  payload: IMovieSearchCard;
 }
-
+export interface IFaveArrayAction {
+  type: typeof SET_FAVE | typeof REMOVE_FAVE;
+  payload: IMovieSearchCard[];
+}
 export interface IMovie {
   id: number;
   title: string;
@@ -77,12 +85,17 @@ export interface IMovie {
 }
 export interface IInitialMovieState {
   movie: IMovie | null;
+  show: boolean;
 }
 export interface IGenre {
   id: number;
   name: string;
 }
 export interface IMovieAction {
-  type: typeof SET_MOVIE;
-  payload: IMovie;
+  type: typeof SET_MOVIE | typeof SHOW_MOVIE | typeof REMOVE_MOVIE;
+  payload?: IMovie;
+}
+export interface ISort {
+  type: typeof SORT;
+  payload: IMovieSearchCard[];
 }

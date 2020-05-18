@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchApiHandler, genreSearch } from "../redux/actions";
+import { searchApiHandler, genreSearch, sort } from "../redux/actions";
 import { genreButton } from "../genres";
 import { IAppReducer } from "../interfaces";
+
 const Form: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [range, setRange] = useState<string>("1900-2020");
@@ -11,6 +12,7 @@ const Form: React.FC = () => {
   const max = useSelector((state: IAppReducer) => state.search.pages);
   const movies = useSelector((state: IAppReducer) => state.search.movies);
   const classes = ["controllers", movies.length ? null : "hide"];
+
   const dispatch = useDispatch();
   const searchHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,6 +45,12 @@ const Form: React.FC = () => {
     flag.length
       ? dispatch(genreSearch(genreButton[flag], page - 1, range))
       : dispatch(searchApiHandler(title, page - 1));
+  };
+  const ratingSortHandler = () => {
+    dispatch(sort(movies, "rating"));
+  };
+  const yearSortHandler = () => {
+    dispatch(sort(movies, "year"));
   };
   return (
     <>
@@ -151,8 +159,12 @@ const Form: React.FC = () => {
           </button>
         )}
         <div className="filters">
-          <button className="btn  orange accent-4 ">По рейтингу</button>
-          <button className="btn purple darken-4">По году</button>
+          <button className="btn  orange accent-4" onClick={ratingSortHandler}>
+            По рейтингу
+          </button>
+          <button className="btn purple darken-4" onClick={yearSortHandler}>
+            По дате
+          </button>
         </div>
       </div>
     </>

@@ -11,6 +11,9 @@ import {
   SET_FAVE,
   REMOVE_FAVE,
   SET_MOVIE,
+  SORT,
+  SHOW_MOVIE,
+  REMOVE_MOVIE,
 } from "./types";
 import {
   ISearchAction,
@@ -21,6 +24,11 @@ import {
   IInitialAuthState,
   IFaveAction,
   IMovie,
+  IMovieAction,
+  ISort,
+  IInitialMovieState,
+  IInitialFaveState,
+  IFaveArrayAction,
 } from "../interfaces";
 import { ThunkDispatch } from "redux-thunk";
 
@@ -121,7 +129,13 @@ export const auth = (email: string, password: string, isLogin: boolean) => {
   };
 };
 export const setFavorites = (url: string) => {
-  return async (dispatch: any) => {
+  return async (
+    dispatch: ThunkDispatch<
+      IInitialFaveState,
+      undefined,
+      IFaveAction | IFaveArrayAction
+    >
+  ) => {
     const movies = await axios.get(
       `https://moviefave-56a11.firebaseio.com/${url}.json`
     );
@@ -150,8 +164,9 @@ export const removeFavotire = (
   movieUrl: string | null,
   movies: IMovieSearchCard[]
 ) => {
-  return async (dispatch: any) => {
-    console.log(movies);
+  return async (
+    dispatch: ThunkDispatch<IInitialFaveState, undefined, IFaveArrayAction>
+  ) => {
     await axios.delete(
       `https://moviefave-56a11.firebaseio.com/${url}/${movieUrl}.json`
     );
@@ -178,7 +193,7 @@ export const login = (token: string): ILogin => {
     payload: token,
   };
 };
-export const logout = () => {
+export const logout = (): ILogin => {
   localStorage.removeItem("token");
   return {
     type: LOGOUT,
@@ -191,7 +206,9 @@ const setPages = (pages: number): ISearchAction => {
   };
 };
 export const setMovie = (id: number) => {
-  return async (dispatch: any) => {
+  return async (
+    dispatch: ThunkDispatch<IInitialMovieState, undefined, IMovieAction>
+  ) => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}?api_key=80ef1f7c9782ae8f49ad43d536130056&language=ru`
     );
@@ -200,7 +217,9 @@ export const setMovie = (id: number) => {
       id: data.id,
       title: data.title,
       tagline: data.tagline,
-      posterImg: `https://image.tmdb.org/t/p/w400/${data.poster_path}`,
+      posterImg: data.poster_path
+        ? `https://image.tmdb.org/t/p/w400/${data.poster_path}`
+        : `https://media.istockphoto.com/photos/vintage-8mm-film-reels-of-home-movies-history-and-memories-picture-id947659542?k=6&m=947659542&s=612x612&w=0&h=kW9x2woe4yB8yjFpkTus_A8z04TRqREZiGKvhRbY_wQ=`,
       rating: data.vote_average,
       genres: data.genres,
       imdbUrl: `https://www.imdb.com/title/${data.imdb_id}`,
@@ -216,7 +235,7 @@ export const setMovie = (id: number) => {
     });
   };
 };
-export const setMovieFromStorage = (movie: IMovie) => {
+export const setMovieFromStorage = (movie: IMovie): IMovieAction => {
   return {
     type: SET_MOVIE,
     payload: movie,
@@ -226,5 +245,39 @@ const nulifySearch = (): ISearchAction => {
   return {
     type: SEARCH,
     payload: [],
+  };
+};
+export const sort = (movies: IMovieSearchCard[], sortType: string) => {
+  return (
+    dispatch: ThunkDispatch<
+      IInitialSearchState,
+      undefined,
+      ISearchAction | ISort
+    >
+  ) => {
+    if (sortType === "rating") {
+      const newMovies = movies.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+      dispatch(nulifySearch());
+      dispatch({ type: SORT, payload: newMovies });
+      return;
+    } else if (sortType === "year") {
+      console.log("hello");
+      const newMovies = movies.sort((a, b) => (a.date > b.date ? -1 : 1));
+      dispatch(nulifySearch());
+      dispatch({ type: SORT, payload: newMovies });
+      return;
+    }
+  };
+};
+
+export const showMovie = (): IMovieAction => {
+  return {
+    type: SHOW_MOVIE,
+  };
+};
+
+export const removeMovie = (): IMovieAction => {
+  return {
+    type: REMOVE_MOVIE,
   };
 };
