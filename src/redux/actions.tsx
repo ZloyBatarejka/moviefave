@@ -32,7 +32,7 @@ import {
 } from "../interfaces";
 import { ThunkDispatch } from "redux-thunk";
 
-const nulifySearch = (): ISearchAction => {
+export const nulifySearch = (): ISearchAction => {
     return {
         type: SEARCH,
         payload: [],
@@ -213,6 +213,7 @@ export const setMovie = (id: number) => {
             type: SET_MOVIE,
             payload: movie,
         });
+        dispatch(showMovie());
     };
 };
 export const setMovieFromStorage = (movie: IMovie): IMovieAction => {
@@ -250,3 +251,4 @@ export const removeMovie = (): IMovieAction => {
         type: REMOVE_MOVIE,
     };
 };
+console.log("lol");

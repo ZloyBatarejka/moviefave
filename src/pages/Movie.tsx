@@ -43,7 +43,7 @@ const Movie: React.FC = () => {
                 <div className="movie__image">
                     <img src={movie.posterImg} alt="postet" />
 
-                    <button className="btn back" onClick={removeMovieHandler}>
+                    <button className="btn back purple darken-4" onClick={removeMovieHandler}>
                         Закрыть
                     </button>
                 </div>

@@ -423,6 +423,10 @@
   overflow: hidden;
 }
 
+.active {
+  color: #ff6d00;
+}
+
 @media screen and (max-width: 825px) {
   .height {
     max-height: auto;

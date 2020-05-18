@@ -25,7 +25,6 @@ const Card: React.FC<ICardProps> = ({ movie }) => {
     });
     const showMovieHandler = (): void => {
         document.body.classList.add("height");
-        dispatch(showMovie());
     };
     const addFavoriteHandler = (): void => {
         if (loggedIn) {

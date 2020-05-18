@@ -6,22 +6,24 @@
 @import "./movie";
 @import "./information";
 * {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: "Source Sans Pro", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Source Sans Pro", sans-serif;
 }
 .hide {
-  display: none;
+    display: none;
 }
 .height {
-  max-height: 100vh;
-  overflow: hidden;
+    max-height: 100vh;
+    overflow: hidden;
 }
-
+.active {
+    color: #ff6d00;
+}
 @media screen and (max-width: $breakPoint) {
-  .height {
-    max-height: auto;
-    overflow: auto;
-  }
+    .height {
+        max-height: auto;
+        overflow: auto;
+    }
 }

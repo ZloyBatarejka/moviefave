@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { openModal, logout } from "../redux/actions";
 import { useSelector } from "react-redux";
 import { IAppReducer } from "../interfaces";
-
+import { nulifySearch } from "../redux/actions";
 const Navbar: React.FC = () => {
     const dispatch = useDispatch();
     const openModalHandler = (): void => {
@@ -15,14 +15,15 @@ const Navbar: React.FC = () => {
     const logoutHandler = (): void => {
         dispatch(logout());
     };
+    const nulifyHandler = (): void => {
+        dispatch(nulifySearch());
+    };
     return (
         <>
             <nav className="nav indigo darken-4">
                 <div className="nav-wrapper ">
-                    <NavLink exact to="/" className="nav__logo">
-                        Batarejka
-                    </NavLink>
-                    <ul id="nav__list" className="right">
+                    <span className="nav__logo">Batarejka</span>
+                    <ul id="nav__list" className="right" onClick={nulifyHandler}>
                         <li className="nav__item">
                             <NavLink exact to="/">
                                 Главная
