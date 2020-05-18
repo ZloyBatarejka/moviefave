@@ -4,8 +4,8 @@ import authReducer from "./authReducer";
 import faveReducer from "./faveReducer";
 import movieReducer from "./movieReducer";
 export default combineReducers({
-  search: searchReducer,
-  auth: authReducer,
-  fave: faveReducer,
-  movie: movieReducer,
+    search: searchReducer,
+    auth: authReducer,
+    fave: faveReducer,
+    movie: movieReducer,
 });

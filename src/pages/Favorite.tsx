@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { IAppReducer } from "../interfaces";
 import Card from "../components/Card";
 const Favorite: React.FC = () => {
-  const movies = useSelector((state: IAppReducer) => state.fave.movieList);
-  const favoriteList = movies.map((movie) => {
-    return <Card key={movie.id} movie={movie} />;
-  });
-  return <div className="cards">{favoriteList}</div>;
+    const movies = useSelector((state: IAppReducer) => state.fave.movieList);
+    const favoriteList = movies.map((movie) => {
+        return <Card key={movie.id} movie={movie} />;
+    });
+    return <div className="cards">{favoriteList}</div>;
 };
 
 export default Favorite;
